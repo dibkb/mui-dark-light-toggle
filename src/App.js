@@ -1,24 +1,38 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import "./App.css";
+import { Typography, Paper, Container, Box } from "@mui/material";
+import { createTheme, ThemeProvider} from "@mui/material/styles";
+import Switch from "@mui/material/Switch";
+const darkTheme = createTheme({
+  palette: {
+    mode: "dark",
+  },
+});
+const lightTheme = createTheme({
+  palette: {
+    mode: "light",
+  },
+});
 
 function App() {
+  const [darkMode, setDarkMode] = useState(false);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ThemeProvider theme={darkMode ? darkTheme : lightTheme}>
+      <Paper style={{ margin: 0, padding: 0, height : '100vh'}} square elevation = {0}>
+        <Container style={{}}>
+          <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+            <Typography variant="h6">
+              This is {darkMode ? "light" : "dark"} mode
+            </Typography>
+            <Switch
+              defaultChecked
+              checked={darkMode}
+              onChange={() => setDarkMode(!darkMode)}
+            />
+          </Box>
+        </Container>
+      </Paper>
+    </ThemeProvider>
   );
 }
 
